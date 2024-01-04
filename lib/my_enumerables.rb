@@ -77,6 +77,15 @@ module Enumerable
 
   end
 
+  def my_map
+    return self unless block_given?
+
+    filtered_array = []
+    self.my_each { |element| filtered_array.push(yield(element)) }
+
+    return filtered_array
+  end
+
 end
 
 class Array
