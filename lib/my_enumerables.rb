@@ -86,6 +86,38 @@ module Enumerable
     return filtered_array
   end
 
+  def my_inject(*args)
+
+    case args
+    in [a] if a.is_a?(Symbol)
+      symbol = a
+    in [a] if a.is_a?(Object)
+      initial_value = a
+    in [a, b]
+      initial_value = a
+      symbol = b
+    else
+      initial_value = nil
+      symbol = nil
+    end
+
+    sum = initial_value || first
+
+    if block_given?
+      my_each_with_index do |element, index|
+        next if initial_value.nil? && index.zero?
+        sum = yield(sum, element)
+      end
+    elsif symbol
+      my_each_with_index do |element, index|
+        next if initial_value.nil? && index.zero?
+
+        sum = sum.send(symbol, element)
+      end
+    end
+  sum
+  end
+
 end
 
 class Array
