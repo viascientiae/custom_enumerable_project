@@ -11,6 +11,20 @@ module Enumerable
 
     self
   end
+
+  def my_select
+    return self unless block_given?
+
+    filtered_array = []
+    self.my_each { |element| filtered_array.push(element) if yield(element) }
+
+    if filtered_array
+      return filtered_array
+    else
+      return []
+    end
+
+  end
 end
 
 class Array
