@@ -66,6 +66,17 @@ module Enumerable
     end
 
   end
+
+  def my_count
+    return self.length unless block_given?
+
+    filtered_array = []
+    self.my_each { |element| filtered_array.push(element) if yield(element) }
+
+    return filtered_array.length
+
+  end
+
 end
 
 class Array
